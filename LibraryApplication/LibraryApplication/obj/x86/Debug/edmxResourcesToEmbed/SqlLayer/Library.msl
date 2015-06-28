@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LibraryModelStoreContainer" CdmEntityContainer="LibraryEntities">
+    <EntitySetMapping Name="tblBOOKs">
+      <EntityTypeMapping TypeName="LibraryModel.tblBOOK">
+        <MappingFragment StoreEntitySet="tblBOOK">
+          <ScalarProperty Name="Book_id" ColumnName="Book_id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblBOOK_AUTHORS">
+      <EntityTypeMapping TypeName="LibraryModel.tblBOOK_AUTHORS">
+        <MappingFragment StoreEntitySet="tblBOOK_AUTHORS">
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Book_id" ColumnName="Book_id" />
+          <ScalarProperty Name="Author_name" ColumnName="Author_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblBOOK_COPIES">
+      <EntityTypeMapping TypeName="LibraryModel.tblBOOK_COPIES">
+        <MappingFragment StoreEntitySet="tblBOOK_COPIES">
+          <ScalarProperty Name="Book_id" ColumnName="Book_id" />
+          <ScalarProperty Name="Branch_id" ColumnName="Branch_id" />
+          <ScalarProperty Name="No_of_copies" ColumnName="No_of_copies" />
+          <ScalarProperty Name="No_of_copies_issued" ColumnName="No_of_copies_issued" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblBOOK_LOANS">
+      <EntityTypeMapping TypeName="LibraryModel.tblBOOK_LOANS">
+        <MappingFragment StoreEntitySet="tblBOOK_LOANS">
+          <ScalarProperty Name="Loan_id" ColumnName="Loan_id" />
+          <ScalarProperty Name="Book_id" ColumnName="Book_id" />
+          <ScalarProperty Name="Branch_id" ColumnName="Branch_id" />
+          <ScalarProperty Name="Card_no" ColumnName="Card_no" />
+          <ScalarProperty Name="Date_out" ColumnName="Date_out" />
+          <ScalarProperty Name="Due_date" ColumnName="Due_date" />
+          <ScalarProperty Name="Date_in" ColumnName="Date_in" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblBORROWERs">
+      <EntityTypeMapping TypeName="LibraryModel.tblBORROWER">
+        <MappingFragment StoreEntitySet="tblBORROWER">
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Card_no" ColumnName="Card_no" />
+          <ScalarProperty Name="Fname" ColumnName="Fname" />
+          <ScalarProperty Name="Lname" ColumnName="Lname" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblLIBRARY_BRANCH">
+      <EntityTypeMapping TypeName="LibraryModel.tblLIBRARY_BRANCH">
+        <MappingFragment StoreEntitySet="tblLIBRARY_BRANCH">
+          <ScalarProperty Name="Branch_id" ColumnName="Branch_id" />
+          <ScalarProperty Name="Branch_name" ColumnName="Branch_name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUsers">
+      <EntityTypeMapping TypeName="LibraryModel.tblUser">
+        <MappingFragment StoreEntitySet="tblUsers">
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="uspGetAvailableBookCountAtBranch" FunctionName="LibraryModel.Store.uspGetAvailableBookCountAtBranch">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="LibraryModel.uspGetAvailableBookCountAtBranch_Result">
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="AvailableCopies" ColumnName="AvailableCopies" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspGetBookCheckOutInfo" FunctionName="LibraryModel.Store.uspGetBookCheckOutInfo">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="LibraryModel.uspGetBookCheckOutInfo_Result">
+          <ScalarProperty Name="Book_id" ColumnName="Book_id" />
+          <ScalarProperty Name="Branch_id" ColumnName="Branch_id" />
+          <ScalarProperty Name="Fname" ColumnName="Fname" />
+          <ScalarProperty Name="Lname" ColumnName="Lname" />
+          <ScalarProperty Name="Date_in" ColumnName="Date_in" />
+          <ScalarProperty Name="Card_no" ColumnName="Card_no" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspGetBookInfo" FunctionName="LibraryModel.Store.uspGetBookInfo">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="LibraryModel.uspGetBookInfo_Result">
+          <ScalarProperty Name="Book_id" ColumnName="Book_id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Author_name" ColumnName="Author_name" />
+          <ScalarProperty Name="Branch_id" ColumnName="Branch_id" />
+          <ScalarProperty Name="Branch_name" ColumnName="Branch_name" />
+          <ScalarProperty Name="No_of_copies" ColumnName="No_of_copies" />
+          <ScalarProperty Name="No_of_Available_copies" ColumnName="No_of_Available_copies" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspGetCardNoBookIssuedCount" FunctionName="LibraryModel.Store.uspGetCardNoBookIssuedCount">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="LibraryModel.uspGetCardNoBookIssuedCount_Result">
+          <ScalarProperty Name="Column1" ColumnName="Column1" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspGetCardNoInfo" FunctionName="LibraryModel.Store.uspGetCardNoInfo">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="LibraryModel.uspGetCardNoInfo_Result">
+          <ScalarProperty Name="Fname" ColumnName="Fname" />
+          <ScalarProperty Name="Lname" ColumnName="Lname" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspUpdateIssuedCopiesCount" FunctionName="LibraryModel.Store.uspUpdateIssuedCopiesCount" />
+    <EntitySetMapping Name="tblFINES">
+      <EntityTypeMapping TypeName="LibraryModel.tblFINE">
+        <MappingFragment StoreEntitySet="tblFINES">
+          <ScalarProperty Name="Branch_id" ColumnName="Branch_id" />
+          <ScalarProperty Name="paid" ColumnName="paid" />
+          <ScalarProperty Name="Fine_amount" ColumnName="Fine_amount" />
+          <ScalarProperty Name="Book_id" ColumnName="Book_id" />
+          <ScalarProperty Name="Loan_id" ColumnName="Loan_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="uspGetFinesById" FunctionName="LibraryModel.Store.uspGetFinesById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="LibraryModel.uspGetFinesById_Result">
+          <ScalarProperty Name="Card_no" ColumnName="Card_no" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Fine_amount" ColumnName="Fine_amount" />
+          <ScalarProperty Name="Book_id" ColumnName="Book_id" />
+          <ScalarProperty Name="Branch_id" ColumnName="Branch_id" />
+          <ScalarProperty Name="Loan_id" ColumnName="Loan_id" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

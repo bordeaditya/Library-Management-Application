@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LibraryModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="LibraryModelStoreContainer">
+    <EntitySet Name="tblBOOK" EntityType="LibraryModel.Store.tblBOOK" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblBOOK_AUTHORS" EntityType="LibraryModel.Store.tblBOOK_AUTHORS" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblBOOK_COPIES" EntityType="LibraryModel.Store.tblBOOK_COPIES" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblBOOK_LOANS" EntityType="LibraryModel.Store.tblBOOK_LOANS" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblBORROWER" EntityType="LibraryModel.Store.tblBORROWER" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblFINES" EntityType="LibraryModel.Store.tblFINES" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblLIBRARY_BRANCH" EntityType="LibraryModel.Store.tblLIBRARY_BRANCH" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblUsers" EntityType="LibraryModel.Store.tblUsers" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK__tblBOOK_A__Book___21B6055D" Association="LibraryModel.Store.FK__tblBOOK_A__Book___21B6055D">
+      <End Role="tblBOOK" EntitySet="tblBOOK" />
+      <End Role="tblBOOK_AUTHORS" EntitySet="tblBOOK_AUTHORS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblBOOK_C__Book___5BE2A6F2" Association="LibraryModel.Store.FK__tblBOOK_C__Book___5BE2A6F2">
+      <End Role="tblBOOK" EntitySet="tblBOOK" />
+      <End Role="tblBOOK_COPIES" EntitySet="tblBOOK_COPIES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblBOOK_C__Branc__5CD6CB2B" Association="LibraryModel.Store.FK__tblBOOK_C__Branc__5CD6CB2B">
+      <End Role="tblLIBRARY_BRANCH" EntitySet="tblLIBRARY_BRANCH" />
+      <End Role="tblBOOK_COPIES" EntitySet="tblBOOK_COPIES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblBOOK_L__Book___3E52440B" Association="LibraryModel.Store.FK__tblBOOK_L__Book___3E52440B">
+      <End Role="tblBOOK" EntitySet="tblBOOK" />
+      <End Role="tblBOOK_LOANS" EntitySet="tblBOOK_LOANS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblBOOK_L__Branc__3F466844" Association="LibraryModel.Store.FK__tblBOOK_L__Branc__3F466844">
+      <End Role="tblLIBRARY_BRANCH" EntitySet="tblLIBRARY_BRANCH" />
+      <End Role="tblBOOK_LOANS" EntitySet="tblBOOK_LOANS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblBOOK_L__Card___403A8C7D" Association="LibraryModel.Store.FK__tblBOOK_L__Card___403A8C7D">
+      <End Role="tblBORROWER" EntitySet="tblBORROWER" />
+      <End Role="tblBOOK_LOANS" EntitySet="tblBOOK_LOANS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblFINES__Book_i__02084FDA" Association="LibraryModel.Store.FK__tblFINES__Book_i__02084FDA">
+      <End Role="tblBOOK" EntitySet="tblBOOK" />
+      <End Role="tblFINES" EntitySet="tblFINES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblFINES__Branch__02FC7413" Association="LibraryModel.Store.FK__tblFINES__Branch__02FC7413">
+      <End Role="tblLIBRARY_BRANCH" EntitySet="tblLIBRARY_BRANCH" />
+      <End Role="tblFINES" EntitySet="tblFINES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblFINES__Loan_i__01142BA1" Association="LibraryModel.Store.FK__tblFINES__Loan_i__01142BA1">
+      <End Role="tblBOOK_LOANS" EntitySet="tblBOOK_LOANS" />
+      <End Role="tblFINES" EntitySet="tblFINES" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="tblBOOK">
+    <Key>
+      <PropertyRef Name="Book_id" />
+    </Key>
+    <Property Name="Book_id" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="Title" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="tblBOOK_AUTHORS">
+    <Key>
+      <PropertyRef Name="Book_id" />
+      <PropertyRef Name="Author_name" />
+    </Key>
+    <Property Name="Book_id" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="Author_name" Type="varchar" Nullable="false" MaxLength="40" />
+    <Property Name="Type" Type="int" />
+    <Property Name="Role" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="tblBOOK_COPIES">
+    <Key>
+      <PropertyRef Name="Book_id" />
+      <PropertyRef Name="Branch_id" />
+    </Key>
+    <Property Name="Book_id" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="Branch_id" Type="int" Nullable="false" />
+    <Property Name="No_of_copies" Type="int" />
+    <Property Name="No_of_copies_issued" Type="int" />
+  </EntityType>
+  <EntityType Name="tblBOOK_LOANS">
+    <Key>
+      <PropertyRef Name="Loan_id" />
+    </Key>
+    <Property Name="Loan_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Book_id" Type="varchar" MaxLength="10" />
+    <Property Name="Branch_id" Type="int" />
+    <Property Name="Card_no" Type="int" />
+    <Property Name="Date_out" Type="datetime" />
+    <Property Name="Due_date" Type="datetime" />
+    <Property Name="Date_in" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblBORROWER">
+    <Key>
+      <PropertyRef Name="Card_no" />
+    </Key>
+    <Property Name="Card_no" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Fname" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="Lname" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="Address" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="Phone" Type="varchar" MaxLength="14" />
+    <Property Name="City" Type="varchar" MaxLength="30" />
+    <Property Name="State" Type="varchar" MaxLength="3" />
+  </EntityType>
+  <EntityType Name="tblFINES">
+    <Key>
+      <PropertyRef Name="Loan_id" />
+    </Key>
+    <Property Name="Loan_id" Type="int" Nullable="false" />
+    <Property Name="Book_id" Type="varchar" MaxLength="10" />
+    <Property Name="Branch_id" Type="int" />
+    <Property Name="Fine_amount" Type="decimal" Precision="8" Scale="2" />
+    <Property Name="paid" Type="bit" />
+  </EntityType>
+  <EntityType Name="tblLIBRARY_BRANCH">
+    <Key>
+      <PropertyRef Name="Branch_id" />
+    </Key>
+    <Property Name="Branch_id" Type="int" Nullable="false" />
+    <Property Name="Branch_name" Type="varchar" MaxLength="40" />
+    <Property Name="Address" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="tblUsers">
+    <Key>
+      <PropertyRef Name="User_id" />
+    </Key>
+    <Property Name="User_id" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="Password" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <Association Name="FK__tblBOOK_A__Book___21B6055D">
+    <End Role="tblBOOK" Type="LibraryModel.Store.tblBOOK" Multiplicity="1" />
+    <End Role="tblBOOK_AUTHORS" Type="LibraryModel.Store.tblBOOK_AUTHORS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblBOOK">
+        <PropertyRef Name="Book_id" />
+      </Principal>
+      <Dependent Role="tblBOOK_AUTHORS">
+        <PropertyRef Name="Book_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblBOOK_C__Book___5BE2A6F2">
+    <End Role="tblBOOK" Type="LibraryModel.Store.tblBOOK" Multiplicity="1" />
+    <End Role="tblBOOK_COPIES" Type="LibraryModel.Store.tblBOOK_COPIES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblBOOK">
+        <PropertyRef Name="Book_id" />
+      </Principal>
+      <Dependent Role="tblBOOK_COPIES">
+        <PropertyRef Name="Book_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblBOOK_C__Branc__5CD6CB2B">
+    <End Role="tblLIBRARY_BRANCH" Type="LibraryModel.Store.tblLIBRARY_BRANCH" Multiplicity="1" />
+    <End Role="tblBOOK_COPIES" Type="LibraryModel.Store.tblBOOK_COPIES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLIBRARY_BRANCH">
+        <PropertyRef Name="Branch_id" />
+      </Principal>
+      <Dependent Role="tblBOOK_COPIES">
+        <PropertyRef Name="Branch_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblBOOK_L__Book___3E52440B">
+    <End Role="tblBOOK" Type="LibraryModel.Store.tblBOOK" Multiplicity="0..1" />
+    <End Role="tblBOOK_LOANS" Type="LibraryModel.Store.tblBOOK_LOANS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblBOOK">
+        <PropertyRef Name="Book_id" />
+      </Principal>
+      <Dependent Role="tblBOOK_LOANS">
+        <PropertyRef Name="Book_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblBOOK_L__Branc__3F466844">
+    <End Role="tblLIBRARY_BRANCH" Type="LibraryModel.Store.tblLIBRARY_BRANCH" Multiplicity="0..1" />
+    <End Role="tblBOOK_LOANS" Type="LibraryModel.Store.tblBOOK_LOANS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLIBRARY_BRANCH">
+        <PropertyRef Name="Branch_id" />
+      </Principal>
+      <Dependent Role="tblBOOK_LOANS">
+        <PropertyRef Name="Branch_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblBOOK_L__Card___403A8C7D">
+    <End Role="tblBORROWER" Type="LibraryModel.Store.tblBORROWER" Multiplicity="0..1" />
+    <End Role="tblBOOK_LOANS" Type="LibraryModel.Store.tblBOOK_LOANS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblBORROWER">
+        <PropertyRef Name="Card_no" />
+      </Principal>
+      <Dependent Role="tblBOOK_LOANS">
+        <PropertyRef Name="Card_no" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblFINES__Book_i__02084FDA">
+    <End Role="tblBOOK" Type="LibraryModel.Store.tblBOOK" Multiplicity="0..1" />
+    <End Role="tblFINES" Type="LibraryModel.Store.tblFINES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblBOOK">
+        <PropertyRef Name="Book_id" />
+      </Principal>
+      <Dependent Role="tblFINES">
+        <PropertyRef Name="Book_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblFINES__Branch__02FC7413">
+    <End Role="tblLIBRARY_BRANCH" Type="LibraryModel.Store.tblLIBRARY_BRANCH" Multiplicity="0..1" />
+    <End Role="tblFINES" Type="LibraryModel.Store.tblFINES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLIBRARY_BRANCH">
+        <PropertyRef Name="Branch_id" />
+      </Principal>
+      <Dependent Role="tblFINES">
+        <PropertyRef Name="Branch_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblFINES__Loan_i__01142BA1">
+    <End Role="tblBOOK_LOANS" Type="LibraryModel.Store.tblBOOK_LOANS" Multiplicity="1" />
+    <End Role="tblFINES" Type="LibraryModel.Store.tblFINES" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="tblBOOK_LOANS">
+        <PropertyRef Name="Loan_id" />
+      </Principal>
+      <Dependent Role="tblFINES">
+        <PropertyRef Name="Loan_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="uspGetAvailableBookCountAtBranch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Book_id" Type="varchar" Mode="In" />
+    <Parameter Name="Branch_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspGetBookCheckOutInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Book_id" Type="varchar" Mode="In" />
+    <Parameter Name="Card_no" Type="int" Mode="In" />
+    <Parameter Name="Borrower_name" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="uspGetBookInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Book_id" Type="varchar" Mode="In" />
+    <Parameter Name="Title" Type="varchar" Mode="In" />
+    <Parameter Name="Author" Type="varchar" Mode="In" />
+    <Parameter Name="Role" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="uspGetCardNoBookIssuedCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Card_no" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspGetCardNoInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Card_no" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspGetFinesById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Card_no" Type="int" Mode="In" />
+    <Parameter Name="Borrower_name" Type="varchar" Mode="In" />
+    <Parameter Name="IsReturned" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="uspUpdateIssuedCopiesCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Book_id" Type="varchar" Mode="In" />
+    <Parameter Name="Branch_id" Type="int" Mode="In" />
+  </Function>
+</Schema>

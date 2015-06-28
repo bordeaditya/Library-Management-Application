@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LibraryModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="LibraryEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tblBOOKs" EntityType="LibraryModel.tblBOOK" />
+    <EntitySet Name="tblBOOK_AUTHORS" EntityType="LibraryModel.tblBOOK_AUTHORS" />
+    <EntitySet Name="tblBOOK_COPIES" EntityType="LibraryModel.tblBOOK_COPIES" />
+    <EntitySet Name="tblBOOK_LOANS" EntityType="LibraryModel.tblBOOK_LOANS" />
+    <EntitySet Name="tblBORROWERs" EntityType="LibraryModel.tblBORROWER" />
+    <EntitySet Name="tblLIBRARY_BRANCH" EntityType="LibraryModel.tblLIBRARY_BRANCH" />
+    <EntitySet Name="tblUsers" EntityType="LibraryModel.tblUser" />
+    <AssociationSet Name="FK__tblBOOK_A__Book___21B6055D" Association="LibraryModel.FK__tblBOOK_A__Book___21B6055D">
+      <End Role="tblBOOK" EntitySet="tblBOOKs" />
+      <End Role="tblBOOK_AUTHORS" EntitySet="tblBOOK_AUTHORS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblBOOK_C__Book___5BE2A6F2" Association="LibraryModel.FK__tblBOOK_C__Book___5BE2A6F2">
+      <End Role="tblBOOK" EntitySet="tblBOOKs" />
+      <End Role="tblBOOK_COPIES" EntitySet="tblBOOK_COPIES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblBOOK_L__Book___3E52440B" Association="LibraryModel.FK__tblBOOK_L__Book___3E52440B">
+      <End Role="tblBOOK" EntitySet="tblBOOKs" />
+      <End Role="tblBOOK_LOANS" EntitySet="tblBOOK_LOANS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblBOOK_C__Branc__5CD6CB2B" Association="LibraryModel.FK__tblBOOK_C__Branc__5CD6CB2B">
+      <End Role="tblLIBRARY_BRANCH" EntitySet="tblLIBRARY_BRANCH" />
+      <End Role="tblBOOK_COPIES" EntitySet="tblBOOK_COPIES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblBOOK_L__Branc__3F466844" Association="LibraryModel.FK__tblBOOK_L__Branc__3F466844">
+      <End Role="tblLIBRARY_BRANCH" EntitySet="tblLIBRARY_BRANCH" />
+      <End Role="tblBOOK_LOANS" EntitySet="tblBOOK_LOANS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblBOOK_L__Card___403A8C7D" Association="LibraryModel.FK__tblBOOK_L__Card___403A8C7D">
+      <End Role="tblBORROWER" EntitySet="tblBORROWERs" />
+      <End Role="tblBOOK_LOANS" EntitySet="tblBOOK_LOANS" />
+    </AssociationSet>
+    <FunctionImport Name="uspGetAvailableBookCountAtBranch" ReturnType="Collection(LibraryModel.uspGetAvailableBookCountAtBranch_Result)">
+      <Parameter Name="Book_id" Mode="In" Type="String" />
+      <Parameter Name="Branch_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspGetBookCheckOutInfo" ReturnType="Collection(LibraryModel.uspGetBookCheckOutInfo_Result)">
+      <Parameter Name="Book_id" Mode="In" Type="String" />
+      <Parameter Name="Card_no" Mode="In" Type="Int32" />
+      <Parameter Name="Borrower_name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="uspGetBookInfo" ReturnType="Collection(LibraryModel.uspGetBookInfo_Result)">
+      <Parameter Name="Book_id" Mode="In" Type="String" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Author" Mode="In" Type="String" />
+      <Parameter Name="Role" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="uspGetCardNoBookIssuedCount" ReturnType="Collection(LibraryModel.uspGetCardNoBookIssuedCount_Result)">
+      <Parameter Name="Card_no" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspGetCardNoInfo" ReturnType="Collection(LibraryModel.uspGetCardNoInfo_Result)">
+      <Parameter Name="Card_no" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspUpdateIssuedCopiesCount">
+      <Parameter Name="Book_id" Mode="In" Type="String" />
+      <Parameter Name="Branch_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspGetUserDetails" ReturnType="Collection(Int32)">
+      <Parameter Name="User_Id" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="tblFINES" EntityType="LibraryModel.tblFINE" />
+    <AssociationSet Name="FK__tblFINES__Book_i__7A672E12" Association="LibraryModel.FK__tblFINES__Book_i__7A672E12">
+      <End Role="tblBOOK" EntitySet="tblBOOKs" />
+      <End Role="tblFINE" EntitySet="tblFINES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblFINES__Loan_i__797309D9" Association="LibraryModel.FK__tblFINES__Loan_i__797309D9">
+      <End Role="tblBOOK_LOANS" EntitySet="tblBOOK_LOANS" />
+      <End Role="tblFINE" EntitySet="tblFINES" />
+    </AssociationSet>
+    <FunctionImport Name="uspGetFinesById" ReturnType="Collection(LibraryModel.uspGetFinesById_Result)">
+      <Parameter Name="Card_no" Mode="In" Type="Int32" />
+      <Parameter Name="Borrower_name" Mode="In" Type="String" />
+      <Parameter Name="IsReturned" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <AssociationSet Name="FK__tblFINES__Branch__02FC7413" Association="LibraryModel.FK__tblFINES__Branch__02FC7413">
+      <End Role="tblLIBRARY_BRANCH" EntitySet="tblLIBRARY_BRANCH" />
+      <End Role="tblFINE" EntitySet="tblFINES" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="tblBOOK">
+    <Key>
+      <PropertyRef Name="Book_id" />
+    </Key>
+    <Property Name="Book_id" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="Title" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="tblBOOK_AUTHORS" Relationship="LibraryModel.FK__tblBOOK_A__Book___21B6055D" FromRole="tblBOOK" ToRole="tblBOOK_AUTHORS" />
+    <NavigationProperty Name="tblBOOK_COPIES" Relationship="LibraryModel.FK__tblBOOK_C__Book___5BE2A6F2" FromRole="tblBOOK" ToRole="tblBOOK_COPIES" />
+    <NavigationProperty Name="tblBOOK_LOANS" Relationship="LibraryModel.FK__tblBOOK_L__Book___3E52440B" FromRole="tblBOOK" ToRole="tblBOOK_LOANS" />
+    <NavigationProperty Name="tblFINES" Relationship="LibraryModel.FK__tblFINES__Book_i__7A672E12" FromRole="tblBOOK" ToRole="tblFINE" />
+  </EntityType>
+  <EntityType Name="tblBOOK_AUTHORS">
+    <Key>
+      <PropertyRef Name="Book_id" />
+      <PropertyRef Name="Author_name" />
+    </Key>
+    <Property Name="Book_id" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="Author_name" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="tblBOOK" Relationship="LibraryModel.FK__tblBOOK_A__Book___21B6055D" FromRole="tblBOOK_AUTHORS" ToRole="tblBOOK" />
+    <Property Type="Int32" Name="Type" />
+    <Property Type="String" Name="Role" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tblBOOK_COPIES">
+    <Key>
+      <PropertyRef Name="Book_id" />
+      <PropertyRef Name="Branch_id" />
+    </Key>
+    <Property Name="Book_id" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="Branch_id" Type="Int32" Nullable="false" />
+    <Property Name="No_of_copies" Type="Int32" />
+    <Property Name="No_of_copies_issued" Type="Int32" />
+    <NavigationProperty Name="tblBOOK" Relationship="LibraryModel.FK__tblBOOK_C__Book___5BE2A6F2" FromRole="tblBOOK_COPIES" ToRole="tblBOOK" />
+    <NavigationProperty Name="tblLIBRARY_BRANCH" Relationship="LibraryModel.FK__tblBOOK_C__Branc__5CD6CB2B" FromRole="tblBOOK_COPIES" ToRole="tblLIBRARY_BRANCH" />
+  </EntityType>
+  <EntityType Name="tblBOOK_LOANS">
+    <Key>
+      <PropertyRef Name="Loan_id" />
+    </Key>
+    <Property Name="Loan_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Book_id" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="Branch_id" Type="Int32" />
+    <Property Name="Card_no" Type="Int32" />
+    <Property Name="Date_out" Type="DateTime" />
+    <Property Name="Due_date" Type="DateTime" />
+    <Property Name="Date_in" Type="DateTime" />
+    <NavigationProperty Name="tblBOOK" Relationship="LibraryModel.FK__tblBOOK_L__Book___3E52440B" FromRole="tblBOOK_LOANS" ToRole="tblBOOK" />
+    <NavigationProperty Name="tblLIBRARY_BRANCH" Relationship="LibraryModel.FK__tblBOOK_L__Branc__3F466844" FromRole="tblBOOK_LOANS" ToRole="tblLIBRARY_BRANCH" />
+    <NavigationProperty Name="tblBORROWER" Relationship="LibraryModel.FK__tblBOOK_L__Card___403A8C7D" FromRole="tblBOOK_LOANS" ToRole="tblBORROWER" />
+    <NavigationProperty Name="tblFINE" Relationship="LibraryModel.FK__tblFINES__Loan_i__797309D9" FromRole="tblBOOK_LOANS" ToRole="tblFINE" />
+  </EntityType>
+  <EntityType Name="tblBORROWER">
+    <Key>
+      <PropertyRef Name="Card_no" />
+    </Key>
+    <Property Name="Card_no" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Fname" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Lname" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Phone" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="tblBOOK_LOANS" Relationship="LibraryModel.FK__tblBOOK_L__Card___403A8C7D" FromRole="tblBORROWER" ToRole="tblBOOK_LOANS" />
+    <Property Type="String" Name="City" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="State" MaxLength="3" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tblLIBRARY_BRANCH">
+    <Key>
+      <PropertyRef Name="Branch_id" />
+    </Key>
+    <Property Name="Branch_id" Type="Int32" Nullable="false" />
+    <Property Name="Branch_name" Type="String" MaxLength="40" Unicode="false" FixedLength="false" />
+    <Property Name="Address" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="tblBOOK_COPIES" Relationship="LibraryModel.FK__tblBOOK_C__Branc__5CD6CB2B" FromRole="tblLIBRARY_BRANCH" ToRole="tblBOOK_COPIES" />
+    <NavigationProperty Name="tblBOOK_LOANS" Relationship="LibraryModel.FK__tblBOOK_L__Branc__3F466844" FromRole="tblLIBRARY_BRANCH" ToRole="tblBOOK_LOANS" />
+    <NavigationProperty Name="tblFINES" Relationship="LibraryModel.FK__tblFINES__Branch__02FC7413" FromRole="tblLIBRARY_BRANCH" ToRole="tblFINE" />
+  </EntityType>
+  <EntityType Name="tblUser">
+    <Key>
+      <PropertyRef Name="User_id" />
+    </Key>
+    <Property Name="User_id" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Password" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK__tblBOOK_A__Book___21B6055D">
+    <End Role="tblBOOK" Type="LibraryModel.tblBOOK" Multiplicity="1" />
+    <End Role="tblBOOK_AUTHORS" Type="LibraryModel.tblBOOK_AUTHORS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblBOOK">
+        <PropertyRef Name="Book_id" />
+      </Principal>
+      <Dependent Role="tblBOOK_AUTHORS">
+        <PropertyRef Name="Book_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblBOOK_C__Book___5BE2A6F2">
+    <End Role="tblBOOK" Type="LibraryModel.tblBOOK" Multiplicity="1" />
+    <End Role="tblBOOK_COPIES" Type="LibraryModel.tblBOOK_COPIES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblBOOK">
+        <PropertyRef Name="Book_id" />
+      </Principal>
+      <Dependent Role="tblBOOK_COPIES">
+        <PropertyRef Name="Book_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblBOOK_L__Book___3E52440B">
+    <End Role="tblBOOK" Type="LibraryModel.tblBOOK" Multiplicity="0..1" />
+    <End Role="tblBOOK_LOANS" Type="LibraryModel.tblBOOK_LOANS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblBOOK">
+        <PropertyRef Name="Book_id" />
+      </Principal>
+      <Dependent Role="tblBOOK_LOANS">
+        <PropertyRef Name="Book_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblBOOK_C__Branc__5CD6CB2B">
+    <End Role="tblLIBRARY_BRANCH" Type="LibraryModel.tblLIBRARY_BRANCH" Multiplicity="1" />
+    <End Role="tblBOOK_COPIES" Type="LibraryModel.tblBOOK_COPIES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLIBRARY_BRANCH">
+        <PropertyRef Name="Branch_id" />
+      </Principal>
+      <Dependent Role="tblBOOK_COPIES">
+        <PropertyRef Name="Branch_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblBOOK_L__Branc__3F466844">
+    <End Role="tblLIBRARY_BRANCH" Type="LibraryModel.tblLIBRARY_BRANCH" Multiplicity="0..1" />
+    <End Role="tblBOOK_LOANS" Type="LibraryModel.tblBOOK_LOANS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLIBRARY_BRANCH">
+        <PropertyRef Name="Branch_id" />
+      </Principal>
+      <Dependent Role="tblBOOK_LOANS">
+        <PropertyRef Name="Branch_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblBOOK_L__Card___403A8C7D">
+    <End Role="tblBORROWER" Type="LibraryModel.tblBORROWER" Multiplicity="0..1" />
+    <End Role="tblBOOK_LOANS" Type="LibraryModel.tblBOOK_LOANS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblBORROWER">
+        <PropertyRef Name="Card_no" />
+      </Principal>
+      <Dependent Role="tblBOOK_LOANS">
+        <PropertyRef Name="Card_no" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="ComplexType1" />
+  <ComplexType Name="uspGetAvailableBookCountAtBranch_Result">
+    <Property Type="String" Name="Title" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="AvailableCopies" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="uspGetBookCheckOutInfo_Result">
+    <Property Type="String" Name="Book_id" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="Branch_id" Nullable="true" />
+    <Property Type="String" Name="Fname" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="Lname" Nullable="false" MaxLength="30" />
+    <Property Type="DateTime" Name="Date_in" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="Card_no" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="uspGetBookInfo_Result">
+    <Property Type="String" Name="Book_id" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="Title" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Author_name" Nullable="false" MaxLength="40" />
+    <Property Type="Int32" Name="Branch_id" Nullable="false" />
+    <Property Type="String" Name="Branch_name" Nullable="true" MaxLength="40" />
+    <Property Type="Int32" Name="No_of_copies" Nullable="true" />
+    <Property Type="Int32" Name="No_of_Available_copies" Nullable="true" />
+    <Property Type="String" Name="Role" Nullable="true" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="uspGetCardNoBookIssuedCount_Result">
+    <Property Type="Int32" Name="Column1" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="uspGetCardNoInfo_Result">
+    <Property Type="String" Name="Fname" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="Lname" Nullable="false" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="uspGetUserDetails_Result">
+    <Property Type="Int32" Name="Column1" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="tblFINE">
+    <Key>
+      <PropertyRef Name="Loan_id" />
+    </Key>
+    <Property Type="Int32" Name="Loan_id" Nullable="false" />
+    <Property Type="String" Name="Book_id" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="Fine_amount" Precision="8" Scale="2" />
+    <Property Type="Boolean" Name="paid" />
+    <NavigationProperty Name="tblBOOK" Relationship="LibraryModel.FK__tblFINES__Book_i__7A672E12" FromRole="tblFINE" ToRole="tblBOOK" />
+    <NavigationProperty Name="tblBOOK_LOANS" Relationship="LibraryModel.FK__tblFINES__Loan_i__797309D9" FromRole="tblFINE" ToRole="tblBOOK_LOANS" />
+    <Property Type="Int32" Name="Branch_id" />
+    <NavigationProperty Name="tblLIBRARY_BRANCH" Relationship="LibraryModel.FK__tblFINES__Branch__02FC7413" FromRole="tblFINE" ToRole="tblLIBRARY_BRANCH" />
+  </EntityType>
+  <Association Name="FK__tblFINES__Book_i__7A672E12">
+    <End Type="LibraryModel.tblBOOK" Role="tblBOOK" Multiplicity="0..1" />
+    <End Type="LibraryModel.tblFINE" Role="tblFINE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblBOOK">
+        <PropertyRef Name="Book_id" />
+      </Principal>
+      <Dependent Role="tblFINE">
+        <PropertyRef Name="Book_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblFINES__Loan_i__797309D9">
+    <End Type="LibraryModel.tblBOOK_LOANS" Role="tblBOOK_LOANS" Multiplicity="1" />
+    <End Type="LibraryModel.tblFINE" Role="tblFINE" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="tblBOOK_LOANS">
+        <PropertyRef Name="Loan_id" />
+      </Principal>
+      <Dependent Role="tblFINE">
+        <PropertyRef Name="Loan_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="uspGetFinesById_Result">
+    <Property Type="Int32" Name="Card_no" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Title" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="Fine_amount" Nullable="true" Precision="8" Scale="2" />
+    <Property Type="String" Name="Book_id" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="Branch_id" Nullable="true" />
+    <Property Type="Int32" Name="Loan_id" Nullable="false" />
+  </ComplexType>
+  <Association Name="FK__tblFINES__Branch__02FC7413">
+    <End Type="LibraryModel.tblLIBRARY_BRANCH" Role="tblLIBRARY_BRANCH" Multiplicity="0..1" />
+    <End Type="LibraryModel.tblFINE" Role="tblFINE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLIBRARY_BRANCH">
+        <PropertyRef Name="Branch_id" />
+      </Principal>
+      <Dependent Role="tblFINE">
+        <PropertyRef Name="Branch_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
